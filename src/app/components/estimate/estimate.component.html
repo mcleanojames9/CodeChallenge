@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="container" id="homeSelect">
+        <p>
+            <button class="button" data-toggle="collapse" href="#collapser" role="button">
+                    Quick Estimate
+            </button>
+            <button class="button" type="button" data-toggle="collapse" data-target="#collapseExample2">
+                    Input Details
+                </button>
+        </p>
+        <div class="collapse" id="collapser" data-parent="#homeSelect" text-center>
+            <div class="card-body">
+                <input class="form-control mr-2" [(ngModel)]="repairInput" type="text" placeholder="Carpet install, Paint touch-up, etc.">
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample2" data-parent="#homeSelect">
+            <div class="card-header">
+                <h3>Enter Repair Cost Details:</h3>
+            </div>
+            <div class="card-body">
+                <form>
+
+                    <fieldset>
+                        <label for="materialCost">Material Costs:</label>
+                        <input class="form-control" id="materialCost" type="string" placeholder="$0.00" [(ngModel)]="matCost" name="matCost" (click)="removeMDefault()" (change)="updateCost()">
+                    </fieldset>
+                    <fieldset>
+                        <label for="materialCost">Labor Costs:</label>
+                        <input class="form-control" id="laborCost" type="string" placeholder="$0.00" [(ngModel)]="labCost" name="labCost" (click)="removeLDefault()" (change)="updateCost()">
+                    </fieldset>
+                    <fieldset>
+                        <label for="materialCost">Inclusive Costs:</label>
+                        <input class="form-control" id="inclusiveCost" type="string" placeholder="$0.00" [(ngModel)]="incluCost" name="incluCost" (click)="removeIDefault()" (change)="updateCost()">
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-group" style="padding: 20px 160px">
+                            <label for="exampleFormControlTextarea1">Add notes</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="" id="finalEstimate" *ngIf="totalBox">
+                            <h3>Final Estimate ${{totalCost}}</h3>
+                            <!-- <h2 {[(ngModel)]="totalCost"}></h2> -->
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
