@@ -1,16 +1,35 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from dataclasses import dataclass
+from flask import Flask, jsonify
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+import psycopg2
 
 
-# Press the green button in the gutter to run the script.
+app = Flask(__name__)
+CORS(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:near476@localhost:5432/postgres"
+db= SQLAlchemy(app)
+@dataclass
+class AppUser(db.Model):
+	user_id: int
+	username: str
+	password: str
+	__tablename__ = 'app_user'
+	user_id = db.Column(db.Integer, primary_key=True)
+	username = db.Column(db.String(35))
+	password = db.Column(db.String(35))
+
+@app.route('/login', methods= ['GET'])
+def login():
+	app_users= AppUser.query.all()
+	return jsonify(app_users)
+
+@app.route('/test')
+# ‘/’ URL is bound with hello_world() function.
+def hello_world():
+	return jsonify({'message':'Python Flask Server is open and ready for business!'})
+
+# main driver function
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+	app.run()
