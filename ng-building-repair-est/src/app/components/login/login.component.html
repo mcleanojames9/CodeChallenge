@@ -4,9 +4,9 @@
             <h3>Username:</h3>
             <input class="form-control mb-5 center" [(ngModel)]="username" type="text">
             <h3>Password:</h3>
-            <input class="form-control center" [(ngModel)]="username" type="text">
+            <input class="form-control center" [(ngModel)]="password" type="text">
         </form>
-            <button class="button" routerLink="#">Login</button>
+            <button class="button" (click)="attemptLogin()">Login</button>
 
     </div>
 </div>
