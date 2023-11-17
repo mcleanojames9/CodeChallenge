@@ -1,21 +1,20 @@
 <div class="d-flex">
     <div class="container">
-        <form style = "margin:10%20%">
+        <div *ngIf="intentNotGiven" class="row">
+            <button class="button" (click)="switchIntent()">Login</button>
+            <button class="button" (click)="switchIntent()">Create Account</button>
+        </div>
+        <form *ngIf="loginIntent" style="margin:10%20%">
             <h3>Username:</h3>
-            <input class="form-control mb-5 center" [(ngModel)]="username" type="text">
+            <input class="form-control mb-5 center" [(ngModel)]="username" type="text" name="userNameText">
             <h3>Password:</h3>
-            <input class="form-control center" [(ngModel)]="password" type="text">
+            <input class="form-control center" [(ngModel)]="password" type="text" name="passwordText">
+            <div *ngIf="intentGiven" class="row">
+                <button class="button" (click)="switchIntent()">Back</button>
+                <button class="button" (click)="attemptLogin()">Login</button>
+            </div>
         </form>
-            <button class="button" (click)="attemptLogin()">Login</button>
+        <!-- <button class="button" (click)="attemptLogin()">Login</button> -->
 
     </div>
 </div>
-
-
-
-<!-- <div class="div">
-    <h2>Enter Player Name</h2>
-    <div class="d-flex justify-content-center">
-        <input class="form-control center" [(ngModel)]="username" type="text">
-    </div>
-</div> -->

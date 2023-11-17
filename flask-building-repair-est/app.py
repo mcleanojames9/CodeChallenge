@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
@@ -20,8 +20,9 @@ class AppUser(db.Model):
 	username = db.Column(db.String(35))
 	password = db.Column(db.String(35))
 
-@app.route('/login', methods= ['GET'])
+@app.route('/login', methods= ['GET','POST'])
 def login():
+	print(request.get_json())
 	app_users= AppUser.query.all()
 	return jsonify(app_users)
 
@@ -29,6 +30,9 @@ def login():
 # ‘/’ URL is bound with hello_world() function.
 def hello_world():
 	return jsonify({'message':'Python Flask Server is open and ready for business!'})
+
+from app import routes
+app.register_blueprint(routes.bp)
 
 # main driver function
 if __name__ == '__main__':
