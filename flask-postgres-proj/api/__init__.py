@@ -1,9 +1,7 @@
 import os
-
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-
-# __init.py__ tells Python that the dir should be treated as a package.
 
 # The application factory
 def create_app(test_config=None):
@@ -11,7 +9,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:near476@localhost:5432/postgres'
     )
 
     if test_config is None:
@@ -21,21 +19,13 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    #initialize databse
+    from .database import db
+    db.init_app(app)
 
     #import/register functions from relative files
-    from . import routes
-    db.init_app(app)
-    app.register_blueprint(auth.bp)
+    from .views import app_user
+    app.register_blueprint(app_user.bp)
 
-
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
 
     return app

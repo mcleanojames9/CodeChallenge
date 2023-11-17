@@ -12,7 +12,7 @@ export class DataTransferService {
     private headers = new HttpHeaders({'Content-Type':'application/json'});
     url='http://localhost:5000'
 
-  getUser(user:User): Observable<User>{
-    return this.http.get<User>(this.url+'/login');
+  getUser(user: User): Observable<User>{
+    return this.http.post<User>(this.url+'/login', user);
   }
 }

@@ -15,7 +15,23 @@ export class LoginComponent implements OnInit {
   }
   username : string = "";
   password : string = "";
+  intentGiven: boolean= false;
+  intentNotGiven: boolean= true;
+  loginIntent: boolean= false;
+  createAccountIntent: boolean=false;
 
+  switchIntent(){
+    this.intentGiven=true;
+    this.intentNotGiven=false;
+    if (this.loginIntent){
+      this.loginIntent = false;
+      this.createAccountIntent = true;
+    }else{
+      this.loginIntent=true;
+      this.createAccountIntent=false;
+    }
+
+  }
   attemptLogin() {
     this.user = new User(this.username, this.password)
     this.dtService.getUser(this.user).subscribe(
