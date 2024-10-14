@@ -35,13 +35,13 @@
                     <fieldset>
                         <div class="form-group" style="padding: 20px 160px">
                             <label for="exampleFormControlTextarea1">Add notes</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea [(ngModel)]="notes" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                     </fieldset>
                     <fieldset>
                         <div class="" id="finalEstimate" *ngIf="totalBox">
                             <h3>Final Estimate ${{totalCost}}</h3>
-                            <!-- <h2 {[(ngModel)]="totalCost"}></h2> -->
+                            <button (click)="saveEstimate()" class="button" >Continue</button>
                         </div>
                     </fieldset>
                 </form>
