@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { DataTransferService } from 'src/app/services/data-transfer.service';
 
@@ -9,36 +10,50 @@ import { DataTransferService } from 'src/app/services/data-transfer.service';
 })
 export class LoginComponent implements OnInit {
   user: User;
-  constructor(private dtService: DataTransferService) { }
+  constructor(private dtService: DataTransferService, public router: Router) { }
   
   ngOnInit(): void {
   }
   username : string = "";
   password : string = "";
-  intentGiven: boolean= false;
   intentNotGiven: boolean= true;
+  intentGiven: boolean= false;
   loginIntent: boolean= false;
-  createAccountIntent: boolean=false;
+  notFound: boolean= false;
+  buttonString: string = 'Login'
 
-  switchIntent(){
-    this.intentGiven=true;
+  switchIntent(choice){
     this.intentNotGiven=false;
-    if (this.loginIntent){
-      this.loginIntent = false;
-      this.createAccountIntent = true;
+    this.intentGiven=true;
+    this.loginIntent=true;
+    if (choice==='login'){
+      this.buttonString = "Login"
     }else{
-      this.loginIntent=true;
-      this.createAccountIntent=false;
+      this.buttonString='Create Account'
     }
 
   }
   attemptLogin() {
     this.user = new User(this.username, this.password)
+    try{
     this.dtService.getUser(this.user).subscribe(
       (response)=> {
         console.log(response);
+        this.router.navigate(['/estimate'])
+        
       }
     )
+
+    }catch{
+
+    }finally{
+      console.log("User not Found");
+      this.notFound=true;
+    }
+  }
+
+  goHome(){
+    this.router.navigate(['/home'])
   }
 
 }

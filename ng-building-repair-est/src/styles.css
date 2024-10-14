@@ -1,5 +1,5 @@
 body {
-    font-family: 'Candara', sans-serif;
+    font-family: 'Calibri', sans-serif;
     background-color: rgb(238, 240, 241);
 }
 
@@ -90,7 +90,7 @@ h2 {
 
 .button:hover {
     width: 50%;
-    background: linear-gradient(to right, #6fd0e9, #317d91, #6fd0e9)
+    background: linear-gradient(to right, #93e4f8, #6bbed5, #93e4f8)
 }
 
 @keyframes expand {

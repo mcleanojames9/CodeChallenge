@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Estimate } from 'src/app/models/estimate'
+import { DataTransferService } from 'src/app/services/data-transfer.service';
 
 @Component({
   selector: 'app-estimate',
@@ -7,8 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./estimate.component.css']
 })
 export class EstimateComponent implements OnInit {
-
-  constructor(private router :Router) { }
+  estimate:Estimate;
+  constructor(private dtService: DataTransferService, public router :Router) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +25,7 @@ export class EstimateComponent implements OnInit {
   inclusiveCost: number = 0;
   totalCost: number = 0;
   totalBox: boolean = false;
+  notes: string = "None";
 
   removeMDefault(){
     if (this.matCost == this.placeholder){
@@ -45,14 +48,23 @@ export class EstimateComponent implements OnInit {
   }
 
   updateCost(){
-    this.totalCost = 
-      parseInt(this.matCost.split('$')[1]) +
-      parseInt(this.labCost.split('$')[1]) +
-      parseInt(this.incluCost.split('$')[1])
+    this.materialCost=parseInt(this.matCost.split('$')[1])
+    this.laborCost=parseInt(this.labCost.split('$')[1])
+    this.inclusiveCost=parseInt(this.incluCost.split('$')[1])
+    this.totalCost = this.materialCost+this.laborCost+this.inclusiveCost
+      
     this.totalBox = true;
   }
 openNewRoute(){
   this.router.navigate(['home']);
+}
+saveEstimate(){
+  this.estimate = new Estimate(this.materialCost, this.laborCost, this.inclusiveCost, this.totalCost, this.notes)
+  this.dtService.saveEstimate(this.estimate).subscribe(
+    (response)=>{
+      console.log(response);
+    }
+  )
 }
 
 }

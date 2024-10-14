@@ -1,17 +1,22 @@
 <div class="d-flex">
     <div class="container">
-        <div *ngIf="intentNotGiven" class="row">
-            <button class="button" (click)="switchIntent()">Login</button>
-            <button class="button" (click)="switchIntent()">Create Account</button>
+        <div *ngIf="intentNotGiven">
+        <div  class="row">
+            <button class="button" (click)="switchIntent('login')">Login</button>
+            <button class="button" (click)="switchIntent('Create')">Create Account</button>
+        </div>
+        <button class="button" routerLink="/estimate" style="background-color: rgb(255, 255, 255);
+        color: rgb(22, 92, 109); border-color: rgb(241, 211, 35);">Guest</button>
         </div>
         <form *ngIf="loginIntent" style="margin:10%20%">
+            <h2 *ngIf="notFound" style="color: brown;">User Not Found</h2>
             <h3>Username:</h3>
             <input class="form-control mb-5 center" [(ngModel)]="username" type="text" name="userNameText">
             <h3>Password:</h3>
             <input class="form-control center" [(ngModel)]="password" type="text" name="passwordText">
             <div *ngIf="intentGiven" class="row">
-                <button class="button" (click)="switchIntent()">Back</button>
-                <button class="button" (click)="attemptLogin()">Login</button>
+                <button class="button" (click)="goHome()">Back</button>
+                <button class="button" (click)="attemptLogin()">{{buttonString}}</button>
             </div>
         </form>
         <!-- <button class="button" (click)="attemptLogin()">Login</button> -->
